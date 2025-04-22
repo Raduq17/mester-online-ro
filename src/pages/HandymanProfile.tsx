@@ -14,7 +14,7 @@ const mockHandyman = {
   name: "Ion Popescu",
   avatar: "https://randomuser.me/api/portraits/men/1.jpg",
   rating: 4.8,
-  reviews: 124,
+  reviewCount: 124,
   specialization: "Amenajări interioare",
   price: "100-150 lei/oră",
   location: "București, Sector 3",
@@ -35,7 +35,7 @@ const mockHandyman = {
     { name: "Zugrăveli", price: "15-25 lei/mp" },
     { name: "Tavane din gips carton", price: "70-100 lei/mp" }
   ],
-  reviews: [
+  reviewItems: [
     { 
       id: 1, 
       author: "Maria D.", 
@@ -90,7 +90,7 @@ const HandymanProfile = () => {
                     <div className="flex items-center">
                       <Star className="w-5 h-5 text-accent fill-accent mr-1" />
                       <span>{mockHandyman.rating}</span>
-                      <span className="text-sm opacity-80 ml-1">({mockHandyman.reviews} recenzii)</span>
+                      <span className="text-sm opacity-80 ml-1">({mockHandyman.reviewCount} recenzii)</span>
                     </div>
                     
                     <div className="flex items-center">
@@ -251,11 +251,11 @@ const HandymanProfile = () => {
                       <Star className="w-8 h-8 text-accent fill-accent" />
                       <span className="text-3xl font-bold ml-2">{mockHandyman.rating}</span>
                     </div>
-                    <span className="text-gray-600 ml-3">din {mockHandyman.reviews} recenzii</span>
+                    <span className="text-gray-600 ml-3">din {mockHandyman.reviewCount} recenzii</span>
                   </div>
                   
                   <div className="space-y-6">
-                    {mockHandyman.reviews.map((review) => (
+                    {mockHandyman.reviewItems.map((review) => (
                       <div key={review.id} className="border-b pb-6">
                         <div className="flex justify-between items-start mb-2">
                           <div>
