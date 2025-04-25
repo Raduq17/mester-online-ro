@@ -8,7 +8,21 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { Star } from 'lucide-react';
+import { Star, Calendar } from 'lucide-react';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Calendar as CalendarComponent } from '@/components/ui/calendar';
+import { format, addDays } from 'date-fns';
+import { ro } from 'date-fns/locale';
+import ImageCarousel from '@/components/listings/ImageCarousel';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 // Mock data for handymen
 const mockHandymen = [
@@ -103,10 +117,28 @@ const services = {
 const ServiceListing = () => {
   const [searchParams] = useSearchParams();
   const [city, setCity] = useState(searchParams.get('city') || "București");
-  const [category, setCategory] = useState("Toate categoriile");
+  const [category, setCategory] = useState(searchParams.get('category') || "Toate categoriile");
   const [service, setService] = useState(searchParams.get('service') || "");
   const [sortOption, setSortOption] = useState("Recomandate");
   const [availableServices, setAvailableServices] = useState<string[]>([]);
+  const [startDate, setStartDate] = useState<Date | undefined>(() => {
+    const dateParam = searchParams.get('startDate');
+    return dateParam ? new Date(dateParam) : new Date();
+  });
+  const [endDate, setEndDate] = useState<Date | undefined>(() => {
+    const dateParam = searchParams.get('endDate');
+    return dateParam ? new Date(dateParam) : addDays(new Date(), 7);
+  });
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 3;
+  
+  // Calculate number of pages
+  const totalPages = Math.ceil(mockHandymen.length / itemsPerPage);
+  
+  // Get current items
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = mockHandymen.slice(indexOfFirstItem, indexOfLastItem);
   
   useEffect(() => {
     if (category === "Toate categoriile") {
@@ -115,6 +147,11 @@ const ServiceListing = () => {
       setAvailableServices(services[category as keyof typeof services] || []);
     }
   }, [category]);
+  
+  const formatDateRange = () => {
+    if (!startDate || !endDate) return "Selectează perioada";
+    return `${format(startDate, 'dd MMM', { locale: ro })} - ${format(endDate, 'dd MMM', { locale: ro })}`;
+  };
 
   return (
     <div className="flex flex-col min-h-screen bg-off-white">
@@ -168,18 +205,30 @@ const ServiceListing = () => {
               </div>
               
               <div className="w-full sm:w-auto">
-                <label className="block text-sm font-medium mb-1">Perioada proiect</label>
-                <Select defaultValue="1">
-                  <SelectTrigger className="w-full sm:w-44">
-                    <SelectValue placeholder="Selectează perioada" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="1">1 săptămână</SelectItem>
-                    <SelectItem value="2">2 săptămâni</SelectItem>
-                    <SelectItem value="3">3 săptămâni</SelectItem>
-                    <SelectItem value="4">4 săptămâni</SelectItem>
-                  </SelectContent>
-                </Select>
+                <label className="block text-sm font-medium mb-1">Perioada</label>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button variant="outline" className="w-full sm:w-52 justify-start text-left">
+                      <Calendar className="mr-2 h-4 w-4" />
+                      {formatDateRange()}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <CalendarComponent
+                      mode="range"
+                      selected={{
+                        from: startDate,
+                        to: endDate
+                      }}
+                      onSelect={(range) => {
+                        setStartDate(range?.from);
+                        setEndDate(range?.to);
+                      }}
+                      numberOfMonths={2}
+                      className="p-3 pointer-events-auto"
+                    />
+                  </PopoverContent>
+                </Popover>
               </div>
               
               <div className="w-full sm:w-auto mt-auto ml-auto">
@@ -223,7 +272,7 @@ const ServiceListing = () => {
               </h2>
               
               <div className="space-y-6">
-                {mockHandymen.map((handyman) => (
+                {currentItems.map((handyman) => (
                   <Card key={handyman.id} className="overflow-hidden hover:shadow-lg transition-shadow">
                     <CardContent className="p-0">
                       <Link to={`/profile/${handyman.id}`} className="flex flex-col sm:flex-row">
@@ -251,22 +300,60 @@ const ServiceListing = () => {
                         <Separator className="sm:hidden my-3" />
                         
                         <div className="w-full sm:w-2/3 lg:w-3/4 p-5 bg-gray-50">
-                          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 h-full">
-                            {handyman.portfolio.map((image, index) => (
-                              <div key={index} className="aspect-video overflow-hidden rounded-md">
-                                <img 
-                                  src={image}
-                                  alt={`Lucrare ${index + 1}`}
-                                  className="w-full h-full object-cover"
-                                />
-                              </div>
-                            ))}
+                          <div className="h-full">
+                            <ImageCarousel images={handyman.portfolio} className="h-48 md:h-56" />
                           </div>
                         </div>
                       </Link>
                     </CardContent>
                   </Card>
                 ))}
+              </div>
+              
+              {/* Pagination */}
+              <div className="mt-8">
+                <Pagination>
+                  <PaginationContent>
+                    <PaginationItem>
+                      <PaginationPrevious 
+                        href="#" 
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setCurrentPage(prev => Math.max(prev - 1, 1));
+                        }}
+                        aria-disabled={currentPage === 1}
+                        className={currentPage === 1 ? "pointer-events-none opacity-50" : ""}
+                      />
+                    </PaginationItem>
+                    
+                    {Array.from({ length: totalPages }).map((_, i) => (
+                      <PaginationItem key={i}>
+                        <PaginationLink 
+                          href="#" 
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setCurrentPage(i + 1);
+                          }}
+                          isActive={currentPage === i + 1}
+                        >
+                          {i + 1}
+                        </PaginationLink>
+                      </PaginationItem>
+                    ))}
+                    
+                    <PaginationItem>
+                      <PaginationNext 
+                        href="#" 
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setCurrentPage(prev => Math.min(prev + 1, totalPages));
+                        }}
+                        aria-disabled={currentPage === totalPages}
+                        className={currentPage === totalPages ? "pointer-events-none opacity-50" : ""}
+                      />
+                    </PaginationItem>
+                  </PaginationContent>
+                </Pagination>
               </div>
             </div>
           </div>
