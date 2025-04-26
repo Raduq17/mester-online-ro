@@ -20,6 +20,7 @@ import FAQ from "./pages/FAQ";
 import Support from "./pages/Support";
 import Contact from "./pages/Contact";
 import AddListing from "./pages/AddListing";
+import RequestDetails from "./pages/RequestDetails";
 
 // Account Pages
 import Favorites from "./pages/account/Favorites";
@@ -52,6 +53,8 @@ const App = () => (
           <Route path="/support" element={<Support />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/add-listing" element={<AddListing />} />
+          <Route path="/edit-listing/:id" element={<AddListing />} />
+          <Route path="/request/:id" element={<RequestDetails />} />
           
           {/* Account pages */}
           <Route path="/account/favorites" element={<Favorites />} />

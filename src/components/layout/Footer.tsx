@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Facebook, Instagram, TiktokIcon } from 'lucide-react';
+import { Facebook, Instagram } from 'lucide-react';
 
 // Adding TiktokIcon since it's not directly available in lucide-react
 const TiktokLogo = () => (
@@ -65,17 +65,17 @@ const Footer = () => {
             <h4 className="font-medium mb-4">Ajutor</h4>
             <ul className="space-y-2">
               <li>
-                <Link to="/faq" className="text-sm opacity-80 hover:opacity-100">
+                <Link to="/faq" className="text-sm opacity-80 hover:opacity-100 bg-[url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2984&q=80')] bg-cover bg-center rounded-md px-3 py-1">
                   Întrebări Frecvente
                 </Link>
               </li>
               <li>
-                <Link to="/support" className="text-sm opacity-80 hover:opacity-100">
+                <Link to="/support" className="text-sm opacity-80 hover:opacity-100 bg-[url('https://images.unsplash.com/photo-1579547945413-497e1b99aac0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2370&q=80')] bg-cover bg-center rounded-md px-3 py-1">
                   Suport Clienți
                 </Link>
               </li>
               <li>
-                <Link to="/contact" className="text-sm opacity-80 hover:opacity-100">
+                <Link to="/contact" className="text-sm opacity-80 hover:opacity-100 bg-[url('https://images.unsplash.com/photo-1557672172-298e090bd0f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2574&q=80')] bg-cover bg-center rounded-md px-3 py-1">
                   Contact
                 </Link>
               </li>
@@ -85,27 +85,33 @@ const Footer = () => {
           <div>
             <h4 className="font-medium mb-4">Aplicația Mobilă</h4>
             <div className="flex flex-col space-y-3">
-              <a href="#" className="inline-block">
-                <img 
-                  src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" 
-                  alt="Download on the App Store" 
-                  className="h-10"
-                />
-              </a>
-              <a href="#" className="inline-block">
-                <img 
-                  src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" 
-                  alt="Get it on Google Play" 
-                  className="h-10"
-                />
-              </a>
-              <a href="#" className="inline-block">
-                <img 
-                  src="https://consumer.huawei.com/content/dam/huawei-cbg-site/common/campaign/emui10/img/badge-black.png" 
-                  alt="Get it on App Gallery" 
-                  className="h-10"
-                />
-              </a>
+              <div className="flex space-x-3">
+                <a href="#" className="inline-block">
+                  <img 
+                    src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" 
+                    alt="Download on the App Store" 
+                    className="h-10"
+                  />
+                </a>
+                <a href="#" className="inline-block">
+                  <img 
+                    src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" 
+                    alt="Get it on Google Play" 
+                    className="h-10"
+                  />
+                </a>
+              </div>
+              <div className="flex space-x-4 mt-4">
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-accent">
+                  <Facebook className="h-6 w-6" />
+                </a>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-accent">
+                  <Instagram className="h-6 w-6" />
+                </a>
+                <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-accent">
+                  <TiktokLogo />
+                </a>
+              </div>
             </div>
           </div>
         </div>

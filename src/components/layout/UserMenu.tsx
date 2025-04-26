@@ -51,14 +51,14 @@ const UserMenu = () => {
       
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuItem asChild>
-          <Link to="/favorites" className="cursor-pointer flex items-center">
+          <Link to="/account/favorites" className="cursor-pointer flex items-center">
             <Heart className="mr-2 h-4 w-4" />
             <span>Favorite</span>
           </Link>
         </DropdownMenuItem>
         
         <DropdownMenuItem asChild>
-          <Link to="/notifications" className="cursor-pointer flex items-center">
+          <Link to="/account/notifications" className="cursor-pointer flex items-center">
             <Bell className="mr-2 h-4 w-4" />
             <span>Notificări</span>
           </Link>
@@ -72,7 +72,7 @@ const UserMenu = () => {
         </DropdownMenuItem>
         
         <DropdownMenuItem asChild>
-          <Link to="/my-listings" className="cursor-pointer flex items-center">
+          <Link to="/account/my-listings" className="cursor-pointer flex items-center">
             <List className="mr-2 h-4 w-4" />
             <span>Anunțurile mele</span>
           </Link>
@@ -81,21 +81,21 @@ const UserMenu = () => {
         <DropdownMenuSeparator />
         
         <DropdownMenuItem asChild>
-          <Link to="/payment-methods" className="cursor-pointer flex items-center">
+          <Link to="/account/payment-methods" className="cursor-pointer flex items-center">
             <CreditCard className="mr-2 h-4 w-4" />
             <span>Metode de plată</span>
           </Link>
         </DropdownMenuItem>
         
         <DropdownMenuItem asChild>
-          <Link to="/invoices" className="cursor-pointer flex items-center">
+          <Link to="/account/invoices" className="cursor-pointer flex items-center">
             <FileText className="mr-2 h-4 w-4" />
             <span>Facturi</span>
           </Link>
         </DropdownMenuItem>
         
         <DropdownMenuItem asChild>
-          <Link to="/settings" className="cursor-pointer flex items-center">
+          <Link to="/account/settings" className="cursor-pointer flex items-center">
             <Settings className="mr-2 h-4 w-4" />
             <span>Setări</span>
           </Link>

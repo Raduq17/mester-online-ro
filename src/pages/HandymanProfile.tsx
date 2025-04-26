@@ -58,6 +58,28 @@ const mockHandyman = {
       date: "10 ianuarie 2023", 
       content: "Am colaborat pentru renovarea completă a apartamentului și sunt foarte mulțumită. Prețuri corecte și calitate ireproșabilă." 
     }
+  ],
+  requests: [
+    {
+      id: 1,
+      title: "Renovare baie",
+      serviceType: "Amenajări interioare",
+      address: "Str. Independenței 15, București",
+      description: "Renovare completă baie, inclusiv înlocuire gresie, faianță și obiecte sanitare.",
+      clientName: "Maria Ionescu",
+      preferredDates: ["2025-05-10", "2025-05-11", "2025-05-12"],
+      status: "pending" // pending, accepted, completed, rejected
+    },
+    {
+      id: 2,
+      title: "Montaj parchet dormitor",
+      serviceType: "Montaj parchet",
+      address: "Bd. Timișoara 35, București",
+      description: "Montaj parchet laminat în dormitor, aproximativ 20mp.",
+      clientName: "George Popescu",
+      preferredDates: ["2025-05-15", "2025-05-16"],
+      status: "pending"
+    }
   ]
 };
 
@@ -79,7 +101,7 @@ const HandymanProfile = () => {
       toast.success('Adăugat la favorite!');
     } else {
       // Remove from favorites
-      const newFavorites = existingFavorites.filter((fav: any) => fav.id !== mockHandyman.id);
+      const newFavorites = existingFavorites.filter((fav) => fav.id !== mockHandyman.id);
       localStorage.setItem('favorites', JSON.stringify(newFavorites));
       toast.success('Eliminat de la favorite!');
     }
@@ -88,7 +110,7 @@ const HandymanProfile = () => {
   // Check if handyman is already in favorites
   React.useEffect(() => {
     const existingFavorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-    const isAlreadyFavorite = existingFavorites.some((fav: any) => fav.id === mockHandyman.id);
+    const isAlreadyFavorite = existingFavorites.some((fav) => fav.id === mockHandyman.id);
     setIsFavorite(isAlreadyFavorite);
   }, []);
 
@@ -134,12 +156,12 @@ const HandymanProfile = () => {
                 </div>
                 
                 <div className="flex flex-col gap-3 min-w-[180px]">
-                  <Button className="bg-accent text-dark-charcoal hover:bg-accent/90">
+                  <Button asChild className="bg-accent text-dark-charcoal hover:bg-accent/90">
                     <Link to={`/contact/${mockHandyman.id}`}>Contactează</Link>
                   </Button>
                   <Button 
                     variant="outline" 
-                    className={`border-white text-white hover:bg-white/10 ${isFavorite ? 'bg-white/20' : ''}`}
+                    className={`border-white text-white bg-primary/30 hover:bg-white/10 ${isFavorite ? 'bg-white/20' : ''}`}
                     onClick={toggleFavorite}
                   >
                     <Heart className={`mr-2 h-4 w-4 ${isFavorite ? 'fill-accent text-accent' : ''}`} />
@@ -158,6 +180,12 @@ const HandymanProfile = () => {
                     className="data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:text-primary rounded-none px-4 py-3"
                   >
                     Despre
+                  </TabsTrigger>
+                  <TabsTrigger 
+                    value="solicitari"
+                    className="data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:text-primary rounded-none px-4 py-3"
+                  >
+                    Solicitări
                   </TabsTrigger>
                   <TabsTrigger 
                     value="portofoliu"
@@ -220,6 +248,50 @@ const HandymanProfile = () => {
                       </div>
                     </div>
                   </div>
+                </TabsContent>
+
+                <TabsContent value="solicitari">
+                  <h2 className="text-xl font-semibold mb-6">Solicitări de lucrări</h2>
+                  
+                  {mockHandyman.requests.length === 0 ? (
+                    <div className="bg-gray-50 p-8 text-center rounded-lg">
+                      <p className="text-gray-600">Nu există solicitări momentan.</p>
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      {mockHandyman.requests.map(request => (
+                        <Card key={request.id} className="overflow-hidden">
+                          <CardContent className="p-5">
+                            <div className="flex flex-col md:flex-row justify-between items-start gap-4">
+                              <div>
+                                <h3 className="font-semibold text-lg mb-1">{request.title}</h3>
+                                <p className="text-sm text-gray-600 mb-2">
+                                  <span className="font-medium">Tip serviciu:</span> {request.serviceType}
+                                </p>
+                                <p className="text-sm text-gray-600">
+                                  <span className="font-medium">Adresă:</span> {request.address}
+                                </p>
+                                <p className="text-sm text-gray-600 mt-2">
+                                  <span className="font-medium">Client:</span> {request.clientName}
+                                </p>
+                              </div>
+                              
+                              <div className="flex gap-2 mt-3 md:mt-0 flex-wrap md:flex-nowrap">
+                                <Button 
+                                  size="sm"
+                                  asChild
+                                >
+                                  <Link to={`/request/${request.id}`}>
+                                    Vezi detalii
+                                  </Link>
+                                </Button>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  )}
                 </TabsContent>
                 
                 <TabsContent value="portofoliu">

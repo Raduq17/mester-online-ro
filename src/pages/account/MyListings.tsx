@@ -87,7 +87,7 @@ const MyListings = () => {
                               </span>
                             </div>
                             <p className="text-sm text-gray-600">
-                              {listing.category} > {listing.service}
+                              {listing.category} &gt; {listing.service}
                             </p>
                           </div>
                           
