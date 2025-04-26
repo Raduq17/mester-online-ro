@@ -39,11 +39,11 @@ const Header = () => {
           
           {!isLoggedIn ? (
             <>
-              <Button asChild variant="outline" className="border-white text-white hover:bg-white/10">
+              <Button asChild variant="outline" className="border-white text-white bg-primary/30 hover:bg-white/10">
                 <Link to="/register">Cont nou</Link>
               </Button>
               
-              <Button asChild variant="outline" className="border-white text-white hover:bg-white/10">
+              <Button asChild variant="outline" className="border-white text-white bg-primary/30 hover:bg-white/10">
                 <Link to="/login">Intră în cont</Link>
               </Button>
             </>

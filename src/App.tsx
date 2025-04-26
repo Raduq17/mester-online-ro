@@ -9,6 +9,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import ServiceListing from "./pages/ServiceListing";
 import HandymanProfile from "./pages/HandymanProfile";
+import HandymanContact from "./pages/HandymanContact";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -19,6 +20,15 @@ import FAQ from "./pages/FAQ";
 import Support from "./pages/Support";
 import Contact from "./pages/Contact";
 import AddListing from "./pages/AddListing";
+
+// Account Pages
+import Favorites from "./pages/account/Favorites";
+import Notifications from "./pages/account/Notifications";
+import MyListings from "./pages/account/MyListings";
+import PaymentMethods from "./pages/account/PaymentMethods";
+import AddPaymentMethod from "./pages/account/AddPaymentMethod";
+import Invoices from "./pages/account/Invoices";
+import Settings from "./pages/account/Settings";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +42,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/listings" element={<ServiceListing />} />
           <Route path="/profile/:id" element={<HandymanProfile />} />
+          <Route path="/contact/:id" element={<HandymanContact />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/terms" element={<TermsAndConditions />} />
@@ -41,6 +52,16 @@ const App = () => (
           <Route path="/support" element={<Support />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/add-listing" element={<AddListing />} />
+          
+          {/* Account pages */}
+          <Route path="/account/favorites" element={<Favorites />} />
+          <Route path="/account/notifications" element={<Notifications />} />
+          <Route path="/account/my-listings" element={<MyListings />} />
+          <Route path="/account/payment-methods" element={<PaymentMethods />} />
+          <Route path="/account/add-payment-method" element={<AddPaymentMethod />} />
+          <Route path="/account/invoices" element={<Invoices />} />
+          <Route path="/account/settings" element={<Settings />} />
+          
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

@@ -1,12 +1,13 @@
 
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Star, MapPin, Clock, Phone, Mail, Calendar, CheckCircle } from 'lucide-react';
+import { Star, MapPin, Clock, Phone, Mail, Calendar, CheckCircle, Heart } from 'lucide-react';
+import { toast } from 'sonner';
 
 // Mock data for a handyman
 const mockHandyman = {
@@ -63,6 +64,33 @@ const mockHandyman = {
 const HandymanProfile = () => {
   const { id } = useParams();
   const [activeImage, setActiveImage] = useState(mockHandyman.portfolio[0]);
+  const [isFavorite, setIsFavorite] = useState(false);
+  
+  const toggleFavorite = () => {
+    setIsFavorite(!isFavorite);
+    
+    // Get existing favorites from localStorage
+    const existingFavorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    
+    if (!isFavorite) {
+      // Add to favorites
+      const newFavorites = [...existingFavorites, mockHandyman];
+      localStorage.setItem('favorites', JSON.stringify(newFavorites));
+      toast.success('Adăugat la favorite!');
+    } else {
+      // Remove from favorites
+      const newFavorites = existingFavorites.filter((fav: any) => fav.id !== mockHandyman.id);
+      localStorage.setItem('favorites', JSON.stringify(newFavorites));
+      toast.success('Eliminat de la favorite!');
+    }
+  };
+  
+  // Check if handyman is already in favorites
+  React.useEffect(() => {
+    const existingFavorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    const isAlreadyFavorite = existingFavorites.some((fav: any) => fav.id === mockHandyman.id);
+    setIsFavorite(isAlreadyFavorite);
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen bg-off-white">
@@ -107,10 +135,15 @@ const HandymanProfile = () => {
                 
                 <div className="flex flex-col gap-3 min-w-[180px]">
                   <Button className="bg-accent text-dark-charcoal hover:bg-accent/90">
-                    Contactează
+                    <Link to={`/contact/${mockHandyman.id}`}>Contactează</Link>
                   </Button>
-                  <Button variant="outline" className="border-white text-white hover:bg-white/10">
-                    Cere ofertă
+                  <Button 
+                    variant="outline" 
+                    className={`border-white text-white hover:bg-white/10 ${isFavorite ? 'bg-white/20' : ''}`}
+                    onClick={toggleFavorite}
+                  >
+                    <Heart className={`mr-2 h-4 w-4 ${isFavorite ? 'fill-accent text-accent' : ''}`} />
+                    {isFavorite ? 'Salvat la favorite' : 'Adaugă la favorite'}
                   </Button>
                 </div>
               </div>
