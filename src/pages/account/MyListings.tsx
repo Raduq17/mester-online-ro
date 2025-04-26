@@ -70,7 +70,7 @@ const MyListings = () => {
             ) : (
               <div className="space-y-4">
                 {mockListings.map(listing => (
-                  <Card key={listing.id} className="overflow-hidden">
+                  <Card key={listing.id}>
                     <CardContent className="p-0">
                       <div className="p-5">
                         <div className="flex flex-col sm:flex-row justify-between">
@@ -105,11 +105,6 @@ const MyListings = () => {
                               <Eye className="h-4 w-4 mr-1" />
                               <span>{listing.views} vizualizări</span>
                             </div>
-                            <span className="mx-2">•</span>
-                            <div className="flex items-center">
-                              <Star className="h-4 w-4 mr-1" />
-                              <span>2 recenzii</span>
-                            </div>
                           </div>
                           
                           <div className="flex gap-2 mt-3 sm:mt-0">
@@ -124,6 +119,19 @@ const MyListings = () => {
                                 Editează
                               </Link>
                             </Button>
+                            
+                            <Button 
+                              variant="outline" 
+                              size="sm" 
+                              className="text-xs"
+                              asChild
+                            >
+                              <Link to={`/listing/${listing.id}/requests`}>
+                                <MessageSquare className="h-3.5 w-3.5 mr-1" />
+                                Solicitări
+                              </Link>
+                            </Button>
+                            
                             <Button 
                               variant="outline" 
                               size="sm" 
@@ -135,6 +143,7 @@ const MyListings = () => {
                                 Previzualizare
                               </Link>
                             </Button>
+                            
                             <Button 
                               variant="destructive" 
                               size="sm" 

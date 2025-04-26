@@ -1,9 +1,7 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Facebook, Instagram } from 'lucide-react';
 
-// Adding TiktokIcon since it's not directly available in lucide-react
 const TiktokLogo = () => (
   <svg 
     className="h-6 w-6" 
@@ -25,19 +23,6 @@ const Footer = () => {
             <p className="text-sm opacity-80 mb-4">
               Descoperă profesioniștii care îți vor clădi viitoarea locuință
             </p>
-            
-            {/* Social Media Icons */}
-            <div className="flex space-x-4 mt-6">
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-accent">
-                <Facebook className="h-6 w-6" />
-              </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-accent">
-                <Instagram className="h-6 w-6" />
-              </a>
-              <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-accent">
-                <TiktokLogo />
-              </a>
-            </div>
           </div>
           
           <div>
@@ -84,8 +69,9 @@ const Footer = () => {
           
           <div>
             <h4 className="font-medium mb-4">Aplicația Mobilă</h4>
-            <div className="flex flex-col space-y-3">
-              <div className="flex space-x-3">
+            <div className="flex flex-col items-center space-y-3">
+              <p className="text-sm opacity-80 mb-2 text-center">Descarcă aplicația mobilă</p>
+              <div className="flex justify-center space-x-3">
                 <a href="#" className="inline-block">
                   <img 
                     src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" 
@@ -101,7 +87,7 @@ const Footer = () => {
                   />
                 </a>
               </div>
-              <div className="flex space-x-4 mt-4">
+              <div className="flex space-x-4 mt-4 justify-center">
                 <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-accent">
                   <Facebook className="h-6 w-6" />
                 </a>

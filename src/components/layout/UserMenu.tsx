@@ -17,7 +17,8 @@ import {
   CreditCard, 
   FileText, 
   Settings, 
-  LogOut 
+  LogOut,
+  MessageSquare
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
@@ -61,6 +62,13 @@ const UserMenu = () => {
           <Link to="/account/notifications" className="cursor-pointer flex items-center">
             <Bell className="mr-2 h-4 w-4" />
             <span>Notificări</span>
+          </Link>
+        </DropdownMenuItem>
+        
+        <DropdownMenuItem asChild>
+          <Link to="/account/requests" className="cursor-pointer flex items-center">
+            <MessageSquare className="mr-2 h-4 w-4" />
+            <span>Solicitările mele</span>
           </Link>
         </DropdownMenuItem>
         

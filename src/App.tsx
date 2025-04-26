@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -30,6 +29,7 @@ import PaymentMethods from "./pages/account/PaymentMethods";
 import AddPaymentMethod from "./pages/account/AddPaymentMethod";
 import Invoices from "./pages/account/Invoices";
 import Settings from "./pages/account/Settings";
+import RequestsList from "./pages/account/RequestsList";
 
 const queryClient = new QueryClient();
 
@@ -64,6 +64,7 @@ const App = () => (
           <Route path="/account/add-payment-method" element={<AddPaymentMethod />} />
           <Route path="/account/invoices" element={<Invoices />} />
           <Route path="/account/settings" element={<Settings />} />
+          <Route path="/account/requests" element={<RequestsList />} />
           
           <Route path="*" element={<NotFound />} />
         </Routes>
