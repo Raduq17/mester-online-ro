@@ -20,6 +20,7 @@ import Support from "./pages/Support";
 import Contact from "./pages/Contact";
 import AddListing from "./pages/AddListing";
 import RequestDetails from "./pages/RequestDetails";
+import ForgotPassword from "./pages/ForgotPassword";
 
 // Account Pages
 import Favorites from "./pages/account/Favorites";
@@ -55,6 +56,7 @@ const App = () => (
           <Route path="/add-listing" element={<AddListing />} />
           <Route path="/edit-listing/:id" element={<AddListing />} />
           <Route path="/request/:id" element={<RequestDetails />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           
           {/* Account pages */}
           <Route path="/account/favorites" element={<Favorites />} />

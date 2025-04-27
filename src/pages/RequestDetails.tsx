@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '@/components/layout/Header';
@@ -13,7 +12,6 @@ import { ro } from 'date-fns/locale';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
-// Mock data
 const mockRequests = [
   {
     id: '1',
@@ -23,7 +21,7 @@ const mockRequests = [
     description: "Renovare completă baie, inclusiv înlocuire gresie, faianță și obiecte sanitare. Doresc să se păstreze poziționarea obiectelor sanitare și să se folosească materiale de calitate.",
     clientName: "Maria Ionescu",
     preferredDates: ["2025-05-10", "2025-05-11", "2025-05-12"],
-    status: "pending" // pending, accepted, completed, rejected
+    status: "pending"
   },
   {
     id: '2',
@@ -77,7 +75,6 @@ const RequestDetails = () => {
       return;
     }
 
-    // Here you would update the request status in a real app
     setIsAcceptDialogOpen(false);
     toast.success("Solicitarea a fost acceptată!", {
       description: `Programare confirmată pentru ${format(selectedDate, 'dd MMMM yyyy', { locale: ro })}, ${selectedTimeSlot}`
@@ -86,7 +83,6 @@ const RequestDetails = () => {
   };
 
   const handleProposeNewDate = () => {
-    // Here you would send a message to the client in a real app
     toast.success("Propunere trimisă!", {
       description: "Clientul va fi notificat despre propunerea dumneavoastră."
     });
@@ -94,7 +90,6 @@ const RequestDetails = () => {
   };
 
   const handleDeclineRequest = () => {
-    // Here you would delete the request in a real app
     toast.success("Solicitare refuzată", {
       description: "Solicitarea a fost ștearsă din lista dumneavoastră."
     });
@@ -165,6 +160,7 @@ const RequestDetails = () => {
                   <Button 
                     variant="outline"
                     onClick={() => navigate(`/chat/${request.id}`)}
+                    className="bg-amber-500 hover:bg-amber-600 text-white border-0"
                   >
                     Răspunde
                   </Button>
@@ -172,6 +168,7 @@ const RequestDetails = () => {
                   <Button 
                     variant="outline"
                     onClick={handleProposeNewDate}
+                    className="bg-amber-500 hover:bg-amber-600 text-white border-0"
                   >
                     Propune altă dată de vizionare
                   </Button>

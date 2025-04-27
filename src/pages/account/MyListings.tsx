@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
@@ -7,6 +6,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { PlusCircle, Edit, Eye, Trash2, Star } from 'lucide-react';
+import { MessageSquare } from 'lucide-react';
 
 // Mock listings data
 const mockListings = [
